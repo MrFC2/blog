@@ -1,0 +1,4 @@
+com\win\blogcommon\model\pojo\User.class
+com\win\blogcommon\model\pojo\Article.class
+com\win\blogcommon\model\pojo\Folder.class
+com\win\blogcommon\model\vo\AuthorityResponse.class
