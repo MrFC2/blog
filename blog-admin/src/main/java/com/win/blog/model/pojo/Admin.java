@@ -28,6 +28,11 @@ public class Admin implements UserDetails {
     return null;
   }
 
+  @Override
+  public String getPassword() {
+    return null;
+  }
+
   @JsonIgnore
   @Override
   public String getUsername() {
