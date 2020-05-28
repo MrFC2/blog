@@ -1,0 +1,43 @@
+# 服务配置
+server:
+  port: 6661
+  servlet:
+    context-path: /blog-admin
+
+# 数据库配置
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/blog_db?characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    username: win
+    password: win111
+
+  # 文件访问
+  mvc:
+    static-path-pattern: /blog-files/**
+  resources:
+    static-locations: file:C:/blog-files/
+
+
+  # 邮件服务配置
+  mail:
+    # 发件人邮箱的SMTP服务器地址, 必须准确, 不同邮件服务器地址不同, 一般格式为: smtp.xxx.com
+    # 例如：网易163邮箱的 SMTP 服务器地址为:smtp.163.com；腾讯邮箱的SMTP服务器地址为:smtp.qq.com
+    host: smtp.qq.com
+    port: 465
+    # 邮箱账号以及其授权码（此处填写的是冯超的邮箱）
+    username: 2584221963@qq.com
+    password: cprmxbqcupuqdifa
+    default-encoding: utf-8
+    protocol: smtp
+    properties:
+      mail:
+        #        debug: true
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          # 邮件发送安全配置
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
