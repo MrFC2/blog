@@ -1,0 +1,126 @@
+-- ----------------------------
+-- Table structure for admin
+-- ----------------------------
+
+drop table if exists `admin`;
+create table `admin` (
+	`id` varchar(32) primary key not null comment '管理员id',
+	`user_name` varchar(16) unique not null comment '管理员昵称',
+	`password` varchar(128) not null comment '登录密码',
+	`email` varchar(64) unique default null comment '绑定的邮箱',
+	`phone` varchar(16) unique default null comment '绑定的手机号',
+	`avatar` varchar(255) default null comment '管理员头像路径',
+	`type` tinyint default 1 comment '管理员类型',
+	`introduction` varchar(128) default '这个人很赖，什么都没写下' comment '个人介绍',
+	`address` varchar(128) default null comment '地址',
+	`enabled` tinyint(1) default 1 comment "账号是否可用",
+	`account_non_expired` tinyint(1) default 1 comment "账号是否未过期",
+	`account_non_locked` tinyint(1) default 1 comment "账号是否未锁定",
+	`login_time` datetime default null comment '登录系统时间',
+	`create_time` timestamp default current_timestamp comment '创建时间',
+  `edit_time` timestamp default current_timestamp on update current_timestamp comment '编辑时间'
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for user
+-- ----------------------------
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
+	`id` varchar(32) not null comment "用户id",
+	`nicename` varchar(16) unique not null comment '用户昵称',
+	`password` varchar(128) default null comment '用户登录密码',
+	`avatar` varchar(256) default null comment '用户头像',
+	`gender` varchar(2) default '' comment '用户性别',
+	`phone_number` varchar(16) default null comment '用户手机号码',
+	`email` varchar(64) default null comment '用户的邮箱账号',
+	`introduction` varchar(64) default '这个用户很赖什么，没写下一句话！' comment '用户介绍',
+	`level` tinyint default null comment '用户等级',
+  `registration_time` timestamp not null default current_timestamp comment '用户注册时间',
+  `edit_time` timestamp not null default current_timestamp on update current_timestamp comment '用户修改时间',
+	`enabled` tinyint(1) default 1 comment "账号是否可用",
+	`account_non_expired` tinyint(1) default 1 comment "账号是否未过期",
+	`account_non_locked` tinyint(1) default 1 comment "账号是否未锁定",
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+
+-- ---------------------------------------
+-- Table structure for article_collection
+-- ---------------------------------------
+DROP TABLE IF EXISTS `article_collection`;
+CREATE TABLE `article_collection` (
+  `id` varchar(32) NOT NULL COMMENT '文件集id',
+  `parent_id` varchar(32) DEFAULT NULL COMMENT '文件集父级id',
+  `user_id` varchar(32) NOT NULL COMMENT '创建者用户id',
+  `name` varchar(16) NOT NULL COMMENT '文件集名称',
+  `create_time` timestamp not null default current_timestamp comment '创建时间',
+  `edit_time` timestamp not null default current_timestamp on update current_timestamp comment '修改时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for article
+-- ----------------------------
+
+DROP TABLE IF EXISTS `article`;
+CREATE TABLE `article`  (
+  `id` varchar(32) not null comment '文章id',
+  `parent_id` varchar(32) default null comment '所属文件夹id',
+  `user_id` varchar(32) not null comment '创建者用户id',
+  `type` tinyint default 0 comment '文章类型,0:富文本，1：markdown',
+  `title` varchar(128) not null comment '文章标题',
+  `content` text not null comment '文章内容',
+  `summary` varchar(255) not null comment '文章概要',
+  `read_amount` int default 0 comment '文章阅读量',
+  `image_src` varchar(255) default null comment '文章封面路径',
+  `is_publish` tinyint(1) not null comment '文章是否已发布（1为已发布，0为未发布）',
+  `is_open` tinyint(1)not null comment '文章是否开放（1为开放，0为不开放）',
+  `publish_time` timestamp not null default current_timestamp comment '文章发布时间',
+  `edit_time` timestamp not null default current_timestamp on update current_timestamp comment '文章编辑时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user_id`(`user_id`) USING BTREE,
+  INDEX `parent_id`(`parent_id`) USING BTREE,
+  CONSTRAINT `article_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `article_collection` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- -------------------------------------
+-- Table structure for code_dictionary
+-- -------------------------------------
+drop table if exists `code_dictionary`;
+create table `code_dictionary` (
+	`id` varchar(32) primary key not null comment '代码字典id',
+	`parent_id` varchar(32) default null comment '父级id',
+	`name` varchar(32) not null comment '名称',
+	`sort` int default 0 comment '排序权重',
+	`desc` varchar(255) default '' comment '代码字典描述',
+	`create_time` timestamp not null default current_timestamp comment '创建时间',
+  `edit_time` timestamp not null default current_timestamp on update current_timestamp comment '修改时间'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- -------------------------------------
+-- Table structure for article_caregoy
+-- -------------------------------------
+drop table if exists `article_category`;
+create table `article_category` (
+	`id` varchar(32) primary key not null comment '关联记录id',
+	`aid` varchar(32) not null comment '文章id',
+	`cid` varchar(32) not null comment '分类id',
+	CONSTRAINT `ibfk_1` FOREIGN KEY (`aid`) REFERENCES `article` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+	CONSTRAINT `ibfk_2` FOREIGN KEY (`cid`) REFERENCES `code_dictionary` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- -------------------------------------
+-- Table structure for system_resource
+-- -------------------------------------
+drop table if exists `system_resources`;
+create table `system_resources` (
+	`id` varchar(32) primary key not null comment '资源id',
+	`url` varchar(255) not null comment '资源路径',
+	`category_id` varchar(32) not null comment '资源分类id',
+	`sort` int default 0 comment '排序权重',
+	`desc` varchar(255) default '' comment '代码字典描述',
+	`upload_time` timestamp not null default current_timestamp comment '上传时间',
+  `edit_time` timestamp not null default current_timestamp on update current_timestamp comment '编辑时间'
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
