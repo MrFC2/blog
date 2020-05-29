@@ -14,6 +14,10 @@ public class User implements Serializable {
 
     private String nickname;
 
+    private String password;
+
+    private String avatar;
+
     private String gender;
 
     private String phoneNumber;
@@ -26,77 +30,12 @@ public class User implements Serializable {
 
     private Date registrationTime;
 
-    private Date modifyTime;
+    private Date editTime;
 
-    public String getId() {
-        return id;
-    }
+    private boolean enabled;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    private boolean accountNonExpired;
 
-    public String getNickname() {
-        return nickname;
-    }
+    private boolean accountNonLocked;
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getIntroduction() {
-        return introduction;
-    }
-
-    public void setIntroduction(String introduction) {
-        this.introduction = introduction;
-    }
-
-    public Integer getLevel() {
-        return level;
-    }
-
-    public void setLevel(Integer level) {
-        this.level = level;
-    }
-
-    public Date getRegistrationTime() {
-        return registrationTime;
-    }
-
-    public void setRegistrationTime(Date registrationTime) {
-        this.registrationTime = registrationTime;
-    }
-
-    public Date getModifyTime() {
-        return modifyTime;
-    }
-
-    public void setModifyTime(Date modifyTime) {
-        this.modifyTime = modifyTime;
-    }
 }
