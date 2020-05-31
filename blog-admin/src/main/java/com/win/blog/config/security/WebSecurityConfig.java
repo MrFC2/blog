@@ -33,6 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
         .authorizeRequests()
         .antMatchers("/oauth/token").permitAll()
+        .antMatchers("/admin/login").permitAll()
+        .antMatchers("/admin/findPassword").permitAll()
         .anyRequest().authenticated()
         .and()
         .csrf()

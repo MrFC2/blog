@@ -38,8 +38,9 @@ public class Admin implements UserDetails {
   }
 
   @Override
+  @JsonIgnore
   public String getPassword() {
-    return null;
+    return password;
   }
 
   @JsonIgnore

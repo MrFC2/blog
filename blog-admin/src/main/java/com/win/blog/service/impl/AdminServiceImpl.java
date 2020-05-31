@@ -17,6 +17,12 @@ public class AdminServiceImpl implements AdminService {
   @Autowired
   private AdminMapper adminMapper;
 
+  /**
+   * oauth
+   * @param userName
+   * @return
+   * @throws UsernameNotFoundException
+   */
   @Override
   public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
     QueryWrapper<Admin> wrapper = new QueryWrapper<>();
