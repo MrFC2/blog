@@ -37,7 +37,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     clients.inMemory()
         .withClient("password")
         .authorizedGrantTypes("password", "refresh_token")
-        .accessTokenValiditySeconds(3600)
+        .accessTokenValiditySeconds(10)
         .resourceIds("blog")
         .scopes("all")
         .secret("123456");

@@ -4,6 +4,20 @@ server:
   servlet:
     context-path: /blog-admin
 
+# 应用监控 actuator
+management:
+  endpoints:
+    web:
+      expsure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  server:
+    port: 9001
+
 # 数据库配置
 spring:
   datasource:
@@ -31,7 +45,7 @@ spring:
     protocol: smtp
     properties:
       mail:
-        #        debug: true
+        # debug: true
         smtp:
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory

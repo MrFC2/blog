@@ -11,7 +11,9 @@ public class CodeDictionary {
 
   private String parentId;
 
-  private String name;
+  private boolean isParent;
+
+  private String code;
 
   private Integer sort;
 

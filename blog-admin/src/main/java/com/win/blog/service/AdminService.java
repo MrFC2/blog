@@ -1,6 +1,7 @@
 package com.win.blog.service;
 
-import org.springframework.security.core.userdetails.UserDetailsService;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.win.blog.model.pojo.Admin;
 
-public interface AdminService extends UserDetailsService {
+public interface AdminService  extends IService<Admin> {
 }

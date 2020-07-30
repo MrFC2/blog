@@ -43,7 +43,6 @@ public class Admin implements UserDetails {
     return password;
   }
 
-  @JsonIgnore
   @Override
   public String getUsername() {
     return userName;

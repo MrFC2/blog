@@ -6,8 +6,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
-// @Configuration
-// @EnableResourceServer
+@Configuration
+@EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
   @Override
@@ -17,14 +17,17 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
-    // http.antMatcher("/a")
-    //     .authorizeRequests()
-    //     .antMatchers("/oauth/token")
-    //     .permitAll()
-    //     .anyRequest()
-    //     .authenticated();
     http.authorizeRequests()
-        .anyRequest()
-        .authenticated();
+        .antMatchers("/oauth/token").permitAll()
+        .antMatchers("/admin/checkAdminIsExist").permitAll()
+        .antMatchers("/admin/login").permitAll()
+        .antMatchers("/admin/findPassword").permitAll()
+        .antMatchers("/actuator/**").permitAll()
+        .anyRequest().authenticated()
+        .and()
+        .logout()
+        .logoutUrl("/admin/logout")
+        .deleteCookies("JSESSIONID")
+        .permitAll();
   }
 }
